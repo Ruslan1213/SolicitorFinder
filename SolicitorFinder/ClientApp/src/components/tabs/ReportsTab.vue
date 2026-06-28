@@ -64,7 +64,7 @@
             </div>
 
             <div class="report-card">
-                <h3>💬 Top 5 by ratings</h3>
+                <h3>💬 Top 5 by reviews</h3>
                 <div v-if="loading" class="loading-small">
                     <div class="spinner-small"></div>
                 </div>
@@ -105,6 +105,27 @@
                              :class="getBarColor(item.range)"></div>
                     </div>
                     <span class="count-label">{{ item.count }} ({{ item.percentage }}%)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-card full-width" v-if="locationStats.length > 0 || loading">
+            <h3>📍 Stats by city</h3>
+            <div v-if="loading" class="loading-small">
+                <div class="spinner-small"></div>
+            </div>
+            <div v-else class="location-table">
+                <div class="location-row location-header">
+                    <span>City</span>
+                    <span>Solicitors</span>
+                    <span>Avg. Rating</span>
+                    <span>Reviews</span>
+                </div>
+                <div v-for="item in locationStats" :key="item.location" class="location-row">
+                    <span class="loc-name">{{ item.location }}</span>
+                    <span class="loc-count">{{ item.solicitorsCount }}</span>
+                    <span class="loc-rating">⭐ {{ item.averageRating }}</span>
+                    <span class="loc-reviews">💬 {{ item.totalReviews }}</span>
                 </div>
             </div>
         </div>
@@ -536,4 +557,39 @@
             grid-template-columns: 1fr;
         }
     }
+
+    .location-table {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .location-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        gap: 8px;
+    }
+
+    .location-header {
+        font-weight: 600;
+        color: #718096;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding-bottom: 4px;
+    }
+
+    .location-row:not(.location-header) {
+        background: #f7fafc;
+    }
+
+    .location-row:not(.location-header):hover {
+        background: #edf2f7;
+    }
+
+    .loc-name { font-weight: 500; color: #2d3748; }
+    .loc-count, .loc-rating, .loc-reviews { color: #4a5568; }
 </style>

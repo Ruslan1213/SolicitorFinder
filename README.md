@@ -86,7 +86,7 @@ This project follows **Clean Architecture** principles with clear separation of 
 ### Required
 - **.NET SDK 8.0** or higher
 - **Node.js 18+** and **npm** (for frontend)
-- **SQL Server** (LocalDB, Express, or full version)
+- **SQL Server** (Express, or full version)
 - **Visual Studio 2022** or **VS Code** (with C# extension)
 
 ### Recommended
@@ -106,35 +106,19 @@ cd SolicitorFinder
 ### 2. Database Setup
 
 #### Update Connection String
-Edit `appsettings.json` in `SolicitorFinder` project:
+Edit `SolicitorFinder/appsettings.Development.json`:
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=SolicitorFinderDb;Trusted_Connection=true;TrustServerCertificate=true"
+    "DefaultConnection": "Server=YOUR_SERVER;Database=SolicitorFinderDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;"
   }
 }
 ```
+Replace `YOUR_SERVER` with your local SQL Server instance (e.g. `localhost\\SQLEXPRESS`).
 
-#### Run Migrations
-```bash
-# Navigate to solution root data
-cd SolicitorFinder/SolicitorFinder.Data
+> **No manual migration step needed.** The database and all tables are created automatically on first run.
 
-# Create database and apply migrations
-dotnet ef database update --project SolicitorFinder.Data --startup-project SolicitorFinder
-
-# Create indexes migration (if not already applied)
- dotnet ef migrations add Initial --project .
- dotnet ef database update --project .
-```
-
-### 3. Install Frontend Dependencies
-```bash
-cd SolicitorFinder/ClientApp
-npm install
-```
-
-### 4. Build and Run
+### 3. Build and Run
 
 #### Option A: Visual Studio
 1. Open `SolicitorFinder.sln`
