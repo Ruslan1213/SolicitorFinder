@@ -1,0 +1,68 @@
+﻿name: Deploy to Windows VPS
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore SolicitorFinder.sln
+
+      - name: Build project
+        run: dotnet build SolicitorFinder.sln --configuration Release --no-restore
+
+      - name: Publish project
+        run: |
+          dotnet publish SolicitorFinder/SolicitorFinder.Api.csproj --configuration Release --output ./publish
+
+      - name: Create deployment package (zip)
+        shell: powershell
+        run: |
+          Compress-Archive -Path .\publish\* -DestinationPath .\publish.zip -Force
+     
+      - name: Deploy to IIS via msdeploy
+        shell: powershell
+        env:
+          VPS_IP: ${{ secrets.VPS_IP }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+        run: |
+          if (-not $env:VPS_IP)   { Write-Error "Secret VPS_IP is not set"; exit 1 }
+          if (-not $env:VPS_USER) { Write-Error "Secret VPS_USER is not set"; exit 1 }
+          if (-not $env:VPS_PASSWORD) { Write-Error "Secret VPS_PASSWORD is not set"; exit 1 }
+
+          $msdeploy = "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe"
+          $publishPath = (Resolve-Path .\publish).Path
+          $computerName = "http://$($env:VPS_IP):80/MSDeployAgentService"
+
+          $arguments = @(
+            "-verb:sync",
+            "-source:dirPath=`"$publishPath`"",
+            "-dest:dirPath=`"C:\inetpub\wwwroot`",computerName=`"$computerName`",userName=`"$env:VPS_USER`",password=`"$env:VPS_PASSWORD`",includeAcls=False",
+            "-skip:Directory=logs",
+            "-verbose"
+          )
+
+          & $msdeploy @arguments
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Install dotnet-ef
+        run: dotnet tool install --global dotnet-ef
+

@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SolicitorCard Snapshots > matches snapshot with full solicitor data 1`] = `
+"<div data-v-7a024112="" class="solicitor-card">
+  <div data-v-7a024112="" class="card-header">
+    <h3 data-v-7a024112="" class="name">Test Solicitor &amp; Associates</h3>
+  </div>
+  <div data-v-7a024112="" class="rating-section">
+    <!-- ✅ Генерируем звёзды --><span data-v-7a024112="" class="stars">★★★★½</span><span data-v-7a024112="" class="rating-value">4.7</span><span data-v-7a024112="" class="review-count">(150 reviews)</span>
+  </div>
+  <div data-v-7a024112="" class="location"> 📍 London, UK</div>
+  <div data-v-7a024112="" class="details">
+    <div data-v-7a024112="" class="detail-item"> 📞 <a data-v-7a024112="" href="tel:+44 20 1234 5678">+44 20 1234 5678</a></div>
+    <div data-v-7a024112="" class="detail-item"> ✉️ <a data-v-7a024112="" href="mailto:info@test.com">mailto:info@test.com</a></div>
+    <div data-v-7a024112="" class="detail-item"> 🌐 <a data-v-7a024112="" href="https://example.com" target="_blank" rel="noopener">https://example.com</a></div>
+    <div data-v-7a024112="" class="detail-item"> 🏠 123 Test Street, London, SW1A 1AA</div>
+  </div>
+  <div data-v-7a024112="" class="description">A professional solicitor firm specializing in family law and commercial disputes.</div>
+  <div data-v-7a024112="" class="card-footer"><span data-v-7a024112="" class="date">Updated: 06/27/2024, 12:30 PM</span></div>
+</div>"
+`;
+
+exports[`SolicitorCard Snapshots > matches snapshot with minimal solicitor data 1`] = `
+"<div data-v-7a024112="" class="solicitor-card">
+  <div data-v-7a024112="" class="card-header">
+    <h3 data-v-7a024112="" class="name">Minimal Solicitor</h3>
+  </div>
+  <div data-v-7a024112="" class="rating-section">
+    <!-- ✅ Генерируем звёзды --><span data-v-7a024112="" class="stars">★★★☆☆</span><span data-v-7a024112="" class="rating-value">3.0</span><span data-v-7a024112="" class="review-count">(5 reviews)</span>
+  </div>
+  <!--v-if-->
+  <div data-v-7a024112="" class="details">
+    <!--v-if-->
+    <!--v-if-->
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+  <!--v-if-->
+  <div data-v-7a024112="" class="card-footer"><span data-v-7a024112="" class="date">Updated: 06/27/2024, 12:30 PM</span></div>
+</div>"
+`;
+
+exports[`SolicitorCard Snapshots > matches snapshot with perfect 5-star rating 1`] = `
+"<div data-v-7a024112="" class="solicitor-card">
+  <div data-v-7a024112="" class="card-header">
+    <h3 data-v-7a024112="" class="name">Perfect Solicitor</h3>
+  </div>
+  <div data-v-7a024112="" class="rating-section">
+    <!-- ✅ Генерируем звёзды --><span data-v-7a024112="" class="stars">★★★★★</span><span data-v-7a024112="" class="rating-value">5.0</span><span data-v-7a024112="" class="review-count">(500 reviews)</span>
+  </div>
+  <div data-v-7a024112="" class="location"> 📍 Manchester</div>
+  <div data-v-7a024112="" class="details">
+    <!--v-if-->
+    <!--v-if-->
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+  <!--v-if-->
+  <div data-v-7a024112="" class="card-footer"><span data-v-7a024112="" class="date">Updated: 06/27/2024, 12:30 PM</span></div>
+</div>"
+`;
